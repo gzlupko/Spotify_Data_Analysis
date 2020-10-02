@@ -36,7 +36,7 @@ top_10_genre <- top_genre[1:10, ]
 
 top_10_genre %>%
   ggplot(aes(x = Genre, y = n, fill = Genre)) + geom_bar(stat = "identity") + 
-  ylab("Genre Count") + theme(legend.position = "none") 
+  ylab("Genre Count") + theme(legend.position = "none") + theme(text = element_text(size = 12)) 
 
 
 # correlations in data set
@@ -89,9 +89,8 @@ ggplot(data = top50, aes(x = Valence., y = Popularity)) + geom_point() +
 
  ggplot(data = Genre, aes(Genre, mean_energy)) + 
    geom_col(color = "red", fill = "orange", alpha = 0.2) + 
-   coord_flip() + ggtitle("Energy by Genre") + xlab("Avg. Energy")
-
- 
+   coord_flip() + ggtitle("Energy by Genre") + xlab("Avg. Energy") + 
+   theme(text = element_text(size = 12))
 
 
 # Beats Per Minute by Genre 
@@ -206,4 +205,7 @@ reg
 reg1
 reg2
 reg3 
+
+
+View(top50)
 
