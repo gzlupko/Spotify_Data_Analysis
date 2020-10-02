@@ -207,10 +207,3 @@ reg1
 reg2
 reg3 
 
-d
-fasf
-adfa
-fa
-fda
-df
-
