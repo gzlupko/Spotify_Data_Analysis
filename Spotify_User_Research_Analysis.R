@@ -205,8 +205,4 @@ reg3 <- data_space3 + geom_line(aes(y= .fitted)) + labs(color = 'Energy Level')
 reg
 reg1
 reg2
-reg3
-
-
-
-
+reg3 
