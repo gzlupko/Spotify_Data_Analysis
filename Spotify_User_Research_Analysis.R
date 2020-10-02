@@ -208,10 +208,5 @@ reg2
 reg3
 
 
-ansd asd
-
-asdfasdf
-
-
 
 
