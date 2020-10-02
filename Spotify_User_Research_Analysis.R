@@ -11,6 +11,7 @@ library(readr)
 library(wesanderson) 
 library(tidyverse) 
 library(broom) 
+library(gridExtra) 
 
 # statistical analysis 
 library(corrplot) 
@@ -37,6 +38,68 @@ top_10_genre <- top_genre[1:10, ]
 top_10_genre %>%
   ggplot(aes(x = Genre, y = n, fill = Genre)) + geom_bar(stat = "identity") + 
   ylab("Genre Count") + theme(legend.position = "none") + theme(text = element_text(size = 12)) 
+
+
+
+# density plots 
+
+
+
+# what was most danceable? 
+
+good_dancing <- top50 %>% 
+  filter(Genre %in% c("trap music", "latin", "dance pop", "pop")) 
+         
+ggplot(good_dancing) + geom_density(aes(x = Danceability, fill = Genre), alpha = 0.2)
+
+
+
+
+# what songs were fastest? 
+
+# first pull from Genres with same or similar counts 
+top50 %>%
+  group_by(Genre) %>%
+  count(Genre) %>%
+  arrange(desc(n)) %>%
+  head(n = 17) 
+
+
+top50 %>% 
+  filter(Genre %in% c("dfw rap", "electropop", "reggaeton")) %>%
+  ggplot() + geom_density(aes(x = Beats.Per.Minute, fill = Genre), alpha = 0.2)
+
+
+# the majority of dance pops songs fell in 100 bpm range with a few songs in uber 
+# fast territory 
+
+top50 %>% 
+  filter(Genre %in% c("dance pop")) %>%
+  ggplot() + geom_density(aes(x = Beats.Per.Minute, fill = Genre), alpha = 0.2)
+
+
+
+
+# how about bpm for all 50 songs ?
+
+
+top50 <- top50 %>%
+  mutate(length_compr = ifelse(Length. > mean(Length.), "High", "Low")) %>%
+  mutate(energy_level = ifelse(Energy > mean(Energy), "High", "Low")) %>%
+  mutate(mood_compr = ifelse(Valence. > mean(Valence.), "High", "Low"))
+
+top50 %>% 
+  ggplot() + geom_density(aes(x = Beats.Per.Minute, color = mood_compr), alpha = 0.2)
+
+top50 %>% 
+  ggplot() + geom_density(aes(x = Beats.Per.Minute, color = length_compr), alpha = 0.2)
+
+ top50 %>% 
+  ggplot() + geom_density(aes(x = Beats.Per.Minute, color = energy_level), alpha = 0.2)
+
+ggplot(data = top50) + geom_density(aes(x = Beats.Per.Minute, alpha = 0.2)) + theme(legend.position = "none") 
+
+
 
 
 # correlations in data set
@@ -106,11 +169,10 @@ ggplot(data = bpm, aes(x = reorder(Genre, -mean_bpm), y = mean_bpm, fill = mean_
   geom_col() + coord_flip() + 
   scale_fill_gradient(low = "sky blue", high = "blue") + 
   theme(legend.position = "none") + ggtitle("Beats Per Minute by Genre") + 
-  ylab("Beats Per Minute") + xlab("Genre") 
+  ylab("Beats Per Minute") + xlab("Genre") + theme(text = element_text(size = 12))
 
 
  
-
 
 ggplot(data = top50, aes(Genre, Energy)) + 
   geom_boxplot(color = "red", fill = "orange", alpha = 0.2) + 
