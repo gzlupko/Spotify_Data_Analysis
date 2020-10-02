@@ -88,6 +88,7 @@ top50 <- top50 %>%
   mutate(energy_level = ifelse(Energy > mean(Energy), "High", "Low")) %>%
   mutate(mood_compr = ifelse(Valence. > mean(Valence.), "High", "Low"))
 
+
 top50 %>% 
   ggplot() + geom_density(aes(x = Beats.Per.Minute, color = mood_compr), alpha = 0.2)
 
