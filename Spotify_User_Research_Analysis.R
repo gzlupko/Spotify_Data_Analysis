@@ -32,12 +32,14 @@ View(top50)
  
 
  
-top_10_genre <- top_genre[1:10, ]
+top_10_genre <- top_genre[1:6, ]
    
 
 top_10_genre %>%
   ggplot(aes(x = Genre, y = n, fill = Genre)) + geom_bar(stat = "identity") + 
-  ylab("Genre Count") + theme(legend.position = "none") + theme(text = element_text(size = 12)) 
+  ylab("Genre Count") + theme(legend.position = "none") + 
+  theme(text = element_text(size = 12)) + 
+  scale_fill_manual(values = wes_palette("Zissou1", 6, "continuous"))
 
 
 
@@ -58,12 +60,12 @@ ggplot(good_dancing) + geom_density(aes(x = Danceability, fill = Genre), alpha =
 # what songs were fastest? 
 
 # first pull from Genres with same or similar counts 
-top50 %>%
+genre_count <- top50 %>%
   group_by(Genre) %>%
   count(Genre) %>%
-  arrange(desc(n)) %>%
-  head(n = 17) 
+  arrange(desc(n))
 
+View(genre_count) 
 
 top50 %>% 
   filter(Genre %in% c("dfw rap", "electropop", "reggaeton")) %>%
@@ -98,8 +100,41 @@ top50 %>%
  top50 %>% 
   ggplot() + geom_density(aes(x = Beats.Per.Minute, color = energy_level), alpha = 0.2)
 
-ggplot(data = top50) + geom_density(aes(x = Beats.Per.Minute, alpha = 0.2)) + theme(legend.position = "none") 
+ggplot(data = top50) + 
+  geom_density(aes(x = Beats.Per.Minute, alpha = 0.2)) + 
+  theme(legend.position = "none") + geom_label( 
+    label = "Lil Tecca - Ransom", 
+    x = 176, y = 0.003, label.padding = unit(0.07, "lines"),
+    label.size = 0.02,
+    color = "black",
+    fill="#69b3a2") + geom_label( 
+      label = "Chainsmokers - Takeaway", 
+      x = 100, y = 0.011, label.padding = unit(0.07, "lines"),
+      label.size = 0.2,
+      color = "black",
+      fill="#69b3a2")
 
+
+library(ggrepel) 
+
+ggplot(data = top50) + 
+  geom_density(aes(x = Beats.Per.Minute, alpha = 0.2)) + 
+  theme(legend.position = "none") + 
+  annotate(geom = "text", x = 93, y = 0.011, label = "Chainsmokers", 
+           color = "blue") + 
+  annotate(geom = "text", x = 93, y = 0.010, label = "Takeaway", 
+           color = "blue") + 
+  annotate(geom = "text", x = 178, y = 0.003, label = "Lil Tecca", 
+           color = "blue") + 
+  annotate(geom = "text", x = 178, y = 0.002, label = "Ransom", 
+           color = "blue")
+
+
+ggplot(data = top50) + 
+  geom_density(aes(x = Beats.Per.Minute, alpha = 0.2)) + 
+  theme(legend.position = "none") + 
+  geom_label_repel(aes(label = Track.Name$Takeaway(top50), 
+                       color = 'black', size = 3.5)) 
 
 
 
