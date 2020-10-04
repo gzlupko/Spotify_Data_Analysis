@@ -39,7 +39,9 @@ top_10_genre %>%
   ggplot(aes(x = Genre, y = n, fill = Genre)) + geom_bar(stat = "identity") + 
   ylab("Genre Count") + theme(legend.position = "none") + 
   theme(text = element_text(size = 12)) + 
-  scale_fill_manual(values = wes_palette("Zissou1", 6, "continuous"))
+  scale_fill_manual(values = wes_palette("Zissou1", 6, "continuous")) + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  ggtitle("Genres by Count in Top 50 Playlist")
 
 
 
@@ -50,9 +52,11 @@ top_10_genre %>%
 # what was most danceable? 
 
 good_dancing <- top50 %>% 
-  filter(Genre %in% c("trap music", "latin", "dance pop", "pop")) 
+  filter(Genre %in% c("latin", "dance pop", "pop")) 
          
-ggplot(good_dancing) + geom_density(aes(x = Danceability, fill = Genre), alpha = 0.2)
+ggplot(good_dancing) + 
+  geom_density(aes(x = Danceability, fill = Genre), alpha = 0.3) + 
+  scale_fill_manual(values = wes_palette("GrandBudapest1")) 
 
 
 
@@ -69,7 +73,9 @@ View(genre_count)
 
 top50 %>% 
   filter(Genre %in% c("dfw rap", "electropop", "reggaeton")) %>%
-  ggplot() + geom_density(aes(x = Beats.Per.Minute, fill = Genre), alpha = 0.2)
+  ggplot() + 
+  geom_density(aes(x = Beats.Per.Minute, fill = Genre), alpha = 0.3) +
+  scale_fill_manual(values = wes_palette("Moonrise3")) 
 
 
 # the majority of dance pops songs fell in 100 bpm range with a few songs in uber 
@@ -77,7 +83,9 @@ top50 %>%
 
 top50 %>% 
   filter(Genre %in% c("dance pop")) %>%
-  ggplot() + geom_density(aes(x = Beats.Per.Minute, fill = Genre), alpha = 0.2)
+  ggplot() + 
+  geom_density(aes(x = Beats.Per.Minute, fill = Genre), alpha = 0.5) + 
+  scale_fill_manual(values = wes_palette("Moonrise3")) 
 
 
 
@@ -92,13 +100,18 @@ top50 <- top50 %>%
 
 
 top50 %>% 
-  ggplot() + geom_density(aes(x = Beats.Per.Minute, color = mood_compr), alpha = 0.2)
+  ggplot() + 
+  geom_density(aes(x = Beats.Per.Minute, color = mood_compr), alpha = 0.2) +  
+  labs(color = "Valence") 
+  
 
 top50 %>% 
-  ggplot() + geom_density(aes(x = Beats.Per.Minute, color = length_compr), alpha = 0.2)
+  ggplot() + geom_density(aes(x = Beats.Per.Minute, color = length_compr), 
+                          alpha = 0.2) + labs(color = "Song Length")
 
  top50 %>% 
-  ggplot() + geom_density(aes(x = Beats.Per.Minute, color = energy_level), alpha = 0.2)
+  ggplot() + geom_density(aes(x = Beats.Per.Minute, color = energy_level), 
+                          alpha = 0.2) + labs(color = "Energy Level") 
 
 ggplot(data = top50) + 
   geom_density(aes(x = Beats.Per.Minute, alpha = 0.2)) + 
@@ -115,7 +128,20 @@ ggplot(data = top50) +
       fill="#69b3a2")
 
 
-library(ggrepel) 
+# beats per minute for all songs with select labels 
+ggplot(data = top50) + 
+  geom_density(aes(x = Beats.Per.Minute, alpha = 0.2)) + 
+  theme(legend.position = "none") + 
+  annotate(geom = "text", x = 95, y = 0.011, label = "Chainsmokers", 
+           color = "dodgerblue2", size = 4) + 
+  annotate(geom = "text", x = 95, y = 0.010, label = "Takeaway", 
+           color = "dodgerblue2", size = 4) + 
+  annotate(geom = "text", x = 178, y = 0.003, label = "Lil Tecca", 
+           color = "dodgerblue2", size = 4) + 
+  annotate(geom = "text", x = 178, y = 0.002, label = "Ransom", 
+           color = "dodgerblue2", size = 4) + theme(text = element_text(size = 8)) 
+
+
 
 ggplot(data = top50) + 
   geom_density(aes(x = Beats.Per.Minute, alpha = 0.2)) + 
