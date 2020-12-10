@@ -11,4 +11,4 @@ III) Statistical Testing and Regression Analysis
 IV) Modeling
 
 
-For a visual companion to the code in this repository check out this link to my notebook in [Kaggle](https://www.kaggle.com/gianzlupko/spotify-user-research). 
+For a visual companion to the code in this repository check out the following link to my notebook in [Kaggle](https://www.kaggle.com/gianzlupko/spotify-user-research). 
