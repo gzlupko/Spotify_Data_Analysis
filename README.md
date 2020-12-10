@@ -5,8 +5,11 @@ I performed data cleaning, visualization, and quantitative statistical testing i
 Overall, the following data science techniques were applied to extract insights on Spotify's top songs in 2019:
 
 I) Data Cleaning
+
 II) Exploratory Data Analysis
+
 III) Statistical Testing and Regression Analysis
+
 IV) Modeling
 
 
