@@ -1,6 +1,6 @@
 # Spotify Data Analysis
 
-I performed data cleaning, visualization, and statistical testing in R on Spotify’s Global Top 50 songs. I also implemented multiple regression to identify multivariate predictors of song popularity. Altogether, the following data science techniques were applied to extract insights on Spotify's top songs in 2019:
+In this repo, I performed data cleaning, visualization, and statistical testing in R on Spotify’s Global Top 50 songs. I also implemented multiple regression to identify multivariate predictors of song popularity. Altogether, the following data science techniques were applied to extract insights on Spotify's top songs in 2019:
 
 I) Data Cleaning
 
